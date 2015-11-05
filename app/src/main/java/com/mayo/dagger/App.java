@@ -2,6 +2,8 @@ package com.mayo.dagger;
 
 import android.app.Application;
 
+import com.mayo.dagger.module.AppModule;
+
 import java.util.Arrays;
 import java.util.List;
 

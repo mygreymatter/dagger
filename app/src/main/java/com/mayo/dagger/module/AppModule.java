@@ -1,7 +1,11 @@
-package com.mayo.dagger;
+package com.mayo.dagger.module;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.mayo.dagger.ActMain;
+import com.mayo.dagger.ActTwo;
+import com.mayo.dagger.App;
 import com.mayo.dagger.job.IJobListener;
 import com.mayo.dagger.job.JobManager;
 
@@ -18,9 +22,12 @@ import dagger.Provides;
         injects = {
                 App.class,
                 ActMain.class,
+                ActTwo.class,
                 JobManager.class,
+                SharedPreferences.class,
         })
 public class AppModule {
+    private static final String PREFS_DEFAULT = "dagger_sharedpreferences";
     private final App app;
 
     public AppModule(App app) {
@@ -38,5 +45,10 @@ public class AppModule {
         return new JobManager();
     }
 
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreference() {
+        return app.getSharedPreferences(PREFS_DEFAULT, Context.MODE_PRIVATE);
+    }
 
 }
